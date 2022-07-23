@@ -5,7 +5,7 @@ from datetime import datetime
 from config import config
 
 
-formatter = logging.Formatter(f'[%(levelname)s] %(pathname)s: %(funcName)s():%(lineno)d \n{str(datetime.now())} : %(message)s')
+formatter = logging.Formatter(f'[%(levelname)s] %(pathname)s: %(funcName)s():%(lineno)d \n%(asctime)s : %(message)s')
 InfoLogger = logging.getLogger('info logger')
 InfoLogger.setLevel(logging.INFO)
 info_file_handler = logging.FileHandler(config.INFO_LOGDIR)
