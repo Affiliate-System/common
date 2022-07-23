@@ -27,7 +27,7 @@ class ORM:
 
         except Exception as e:
             ErrorLogger.error(f'orm.find.fail. Details: {str({"obj": obj, "limit": limit, "error": e})}')
-            return e
+            return None, e
 
         InfoLogger.info(f'orm.find.success. Details: {str({"obj": obj, "limit": limit})}')
         return docs, None
@@ -38,7 +38,7 @@ class ORM:
 
         except Exception as e:
             ErrorLogger.error(f'orm.insert.fail. Details: {str({"objs": objs, "error": e})}')
-            return e
+            return None, e
 
         InfoLogger.info(f'orm.insert.success. Details: {str({"objs": objs})}')
         return result.inserted_ids, None
@@ -49,7 +49,7 @@ class ORM:
 
         except Exception as e:
             ErrorLogger.error(f'orm.update.fail. Details: {str({"query": query, "data": data, "error": e})}')
-            return e
+            return None, e
 
         InfoLogger.info(f'orm.update.success. Details: {str({"query": query, "data": data})}')
         return result.modified_count, None
