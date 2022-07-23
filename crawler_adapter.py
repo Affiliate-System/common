@@ -203,3 +203,13 @@ class CrawlerAdapter:
 
         InfoLogger.info(f'crawler_adapter.screenshot.success. Details: {str({"xpath": xpath})}')
         return None
+
+    def type(self, keys):
+        try:
+            self.action.send_keys(keys).perform()
+
+        except Exception as e:
+            ErrorLogger.error(f'crawler_adapter.screenshot.fail. Details: {str({"keys": keys, "error": e})}')
+            return e
+
+        return None
