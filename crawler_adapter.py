@@ -193,6 +193,20 @@ class CrawlerAdapter:
         InfoLogger.info(f'crawler_adapter.get_attribute.success. Details: {str({"xpath": xpath, "attribute_value": attr_value})}')
         return attr_value, None
 
+    def get_attributes(self, xpath, attr):
+        try:
+            elems, res = self.get_elements_by_xpath(xpath)
+            if res: return res
+
+            attr_values = [elem.get_attribute(attr) for elem in elems]
+
+        except Exception as e:
+            ErrorLogger.error(f'crawler_adapter.get_attributes.fail. Details: {str({"xpath": xpath, "error": e})}')
+            return None, e
+
+        InfoLogger.info(f'crawler_adapter.get_attributes.success. Details: {str({"xpath": xpath, "attribute_values": attr_values})}')
+        return attr_values, None
+
     def screenshot(self, filename):
         try:
             self.driver.save_screenshot(filename)
