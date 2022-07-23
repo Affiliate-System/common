@@ -51,7 +51,7 @@ class TCP:
 
         except Exception as e:
             ErrorLogger.error(f'tcp.recv.fail. Details {str({"error": e})}')
-            return e
+            return None, e
 
         InfoLogger.info(f'tcp.recv.success. Details {str({"msg": msg_decode})}')
         return msg_decode, None
@@ -118,7 +118,7 @@ class TCP:
             return None, e
 
         ErrorLogger.error(f'tcp.encode.message_type_not_supported. Details {str({"type": type(msg)})}')
-        return Exception('tcp.encode.message_type_not_supported')
+        return None, Exception('tcp.encode.message_type_not_supported')
 
 
     @staticmethod
