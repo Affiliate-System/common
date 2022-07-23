@@ -198,10 +198,10 @@ class CrawlerAdapter:
             self.driver.save_screenshot(filename)
 
         except Exception as e:
-            ErrorLogger.error(f'crawler_adapter.screenshot.fail. Details: {str({"xpath": xpath, "error": e})}')
+            ErrorLogger.error(f'crawler_adapter.screenshot.fail. Details: {str({"filename": filename, "error": e})}')
             return e
 
-        InfoLogger.info(f'crawler_adapter.screenshot.success. Details: {str({"xpath": xpath})}')
+        InfoLogger.info(f'crawler_adapter.screenshot.success. Details: {str({"filename": filename})}')
         return None
 
     def type(self, keys):
