@@ -11,9 +11,11 @@ class TCP:
 
             msg_encode, res = TCP.encode(msg)
             if res: return res
+            InfoLogger.info(f'tcp.send.encode_msg_success. Details: {str({"msg_encoded": msg_encode})}')
 
             header, res = TCP.encode(len(msg_encode))
             if res: return res
+            InfoLogger.info(f'tcp.send.encode_header_success. Details: {str({"header_encoded": header})}')
             conn.send(header)
 
             ack = conn.recv(32)
@@ -34,6 +36,7 @@ class TCP:
             if res:
                 ErrorLogger.error(f'tcp.recv.fail.')
                 return None, res
+            InfoLogger.info(f'tcp.recv.decode_msg_success. Details {str({"msg_decoded": msg_decode})}')
 
             size = int(msg_decode)
 
@@ -42,6 +45,7 @@ class TCP:
 
             msg = conn.recv(size)
             msg_decode, res = TCP.decode(msg)
+            InfoLogger.info(f'tcp.recv.decode_msg_success. Details {str({"msg_decoded": msg_decode})}')
             if res:
                 ErrorLogger.error(f'tcp.recv.fail.')
                 return None, res
@@ -76,7 +80,6 @@ class TCP:
     def encode(msg):
         try:
             if type(msg) is str:
-                InfoLogger.info(f'tcp.encode.success. Details: {str({"msg": msg})}')
                 return bytes(msg, 'utf8'), None
 
             elif type(msg) in [int, bool, float]:
@@ -85,7 +88,6 @@ class TCP:
                     ErrorLogger.error(f'tcp.encode.fail.')
                     return None, res
 
-                InfoLogger.info(f'tcp.encode.success. Details: {str({"msg": msg})}')
                 return msg_encode, None
 
             elif type(msg) is list:
@@ -97,7 +99,6 @@ class TCP:
                         return None, res
                     msg_bytes += [msg_byte]
 
-                InfoLogger.info(f'tcp.encode.success. Details: {str({"msg": msg})}')
                 return bytes(str(msg_bytes), 'utf8'), None
 
             elif type(msg) is dict:
@@ -107,7 +108,6 @@ class TCP:
                         ErrorLogger.error(f'tcp.encode.fail.')
                         return None, res
 
-                InfoLogger.info(f'tcp.encode.success. Details: {str({"msg": msg})}')
                 return bytes(str(msg), 'utf8'), None
 
             elif msg is None:
@@ -133,7 +133,6 @@ class TCP:
         try:
             msg_object = eval(msg_str)
         except:
-            InfoLogger.info(f'tcp.decode.success. Details {str({"msg": msg_str})}')
             return msg_str, None
 
         try:
@@ -144,7 +143,6 @@ class TCP:
                         ErrorLogger.error(f'tcp.decode.fail.')
                         return None, res
 
-                InfoLogger.info(f'tcp.decode.success. Details {str({"msg": msg_str, "msg_object": msg_object})}')
                 return msg_object, None
 
             elif type(msg_object) is dict:
@@ -154,11 +152,9 @@ class TCP:
                         ErrorLogger.error(f'tcp.decode.fail.')
                         return None, res
 
-                InfoLogger.info(f'tcp.decode.success. Details {str({"msg": msg_str, "msg_object": msg_object})}')
                 return msg_object, None
 
             elif type(msg_object) in [int, bool, float]:
-                InfoLogger.info(f'tcp.decode.success. Details {str({"msg": msg_str, "msg_object": msg_object})}')
                 return msg_object, None
 
         except Exception as e:
