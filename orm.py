@@ -1,4 +1,7 @@
+from datetime import datetime
+from copy import deepcopy
 import pymongo
+from bson.timestamp import Timestamp
 
 from common.logging import InfoLogger, ErrorLogger, InfoLogger
 
@@ -34,6 +37,7 @@ class ORM:
 
     def insert(self, objs):
         try:
+            objs = self.hook_pre_insert(objs)
             result = self.table.insert_many(objs)
 
         except Exception as e:
@@ -42,6 +46,13 @@ class ORM:
 
         InfoLogger.info(f'orm.insert.success. Details: {str({"objs": objs})}')
         return result.inserted_ids, None
+
+    def hook_pre_insert(self, objs):
+        objs = deepcopy(objs)
+        for i, obj in enumerate(objs):
+            objs[i]['updated_at'] = Timestamp(datetime.now())
+
+        return objs
 
     def update(self, query, data):
         try:
