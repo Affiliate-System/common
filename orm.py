@@ -1,6 +1,7 @@
-from datetime import datetime
-from copy import deepcopy
 import pymongo
+from copy import deepcopy
+from random import randint
+from datetime import datetime
 from bson.timestamp import Timestamp
 
 from common.logging import InfoLogger, ErrorLogger, InfoLogger
@@ -50,7 +51,7 @@ class ORM:
     def hook_pre_insert(self, objs):
         objs = deepcopy(objs)
         for i, obj in enumerate(objs):
-            objs[i]['updated_at'] = Timestamp(datetime.now())
+            objs[i]['updated_at'] = Timestamp(datetime.now(), randint(0, 1<<32-1))
 
         return objs
 
