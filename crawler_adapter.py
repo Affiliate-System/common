@@ -28,6 +28,7 @@ class CrawlerAdapter:
         try:
             self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
             self.action = ActionChains(self.driver)
+            self.driver.set_window_size(1920, 1080)
         except Exception as e:
             ErrorLogger.error('crawler_adapter.init.init_driver_and_action_fail')
             return e
