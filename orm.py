@@ -24,9 +24,12 @@ class ORM:
         InfoLogger.info(f'orm.connect.success. Details: {str( {"uri": uri, "db_name": db_name, "table_name": table_name} )}')
         return None
 
-    def find(self, obj, limit=1):
+    def find(self, obj, limit=1, sortBy=None):
         try:
-            items = self.table.find(obj, limit=limit)
+            if sortBy:
+                items = self.table.find(obj, limit=limit).sort(sortBy)
+            else:
+                items = self.table.find(obj, limit=limit)
             docs = [i for i in items]
 
         except Exception as e:
