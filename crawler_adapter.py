@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 
-from common.logging import InfoLogger, ErrorLogger, InfoLogger
+from common.logging import InfoLogger, ErrorLogger
 
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -33,7 +33,6 @@ class CrawlerAdapter:
             ErrorLogger.error('crawler_adapter.init.init_driver_and_action_fail')
             return e
 
-        InfoLogger.info('crawler_adapter.init.success')
         return None
 
     def close(self):
@@ -43,7 +42,6 @@ class CrawlerAdapter:
             ErrorLogger.error('crawler_adapter.close.close_driver_fail')
             return e
 
-        InfoLogger.info('crawler_adapter.close.success')
         return None
 
     def get(self, url):
@@ -53,7 +51,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get.driver_get_url_fail. Details {str({"error": e})}')
             return e
 
-        InfoLogger.info('crawler_adapter.get.success')
         return None
 
     def get_element_by_xpath(self, xpath, timeout=None):
@@ -73,7 +70,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_element_by_xpath.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_element_by_xpath.success. Details: {str({"xpath": xpath})}')
         return elem, None
 
     def get_elements_by_xpath(self, xpath, timeout=None):
@@ -93,7 +89,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_element_by_xpath.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_elements_by_xpath.success. Details: {str({"xpath": xpath})}')
         return elem, None
 
     def click(self, xpath, offset=None, timeout=None):
@@ -113,7 +108,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.click.fail. Details: {str({"xpath": xpath, "error": e})}')
             return e
 
-        InfoLogger.info(f'crawler_adapter.click.success. Details: {str({"xpath": xpath})}')
         return None
 
     def get_text(self, xpath, timeout=None):
@@ -127,7 +121,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_text.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_text.success. Details: {str({"xpath": xpath, "text": element.text})}')
         return element.text, None
 
     def get_texts(self, xpath, timeout=None):
@@ -143,7 +136,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_texts.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_texts.success. Details: {str({"xpath": xpath, "texts": elem_texts})}')
         return elem_texts, None
 
     def fill_textfield(self, xpath, keys, timeout = None):
@@ -159,7 +151,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.fill_textfield.fail. Details: {str({"xpath": xpath, "keys": keys, "error": e})}')
             return e
 
-        InfoLogger.info(f'crawler_adapter.fill_textfield.success. Details: {str({"xpath": xpath, "keys": keys})}')
         return None
 
     def submit(self, xpath, timeout = None):
@@ -175,7 +166,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.submit.fail. Details: {str({"xpath": xpath, "error": e})}')
             return e
 
-        InfoLogger.info(f'crawler_adapter.submit.success. Details: {str({"xpath": xpath})}')
         return None
 
     def get_attribute(self, xpath, attr):
@@ -191,7 +181,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_attribute.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_attribute.success. Details: {str({"xpath": xpath, "attribute_value": attr_value})}')
         return attr_value, None
 
     def get_attributes(self, xpath, attr):
@@ -205,7 +194,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.get_attributes.fail. Details: {str({"xpath": xpath, "error": e})}')
             return None, e
 
-        InfoLogger.info(f'crawler_adapter.get_attributes.success. Details: {str({"xpath": xpath, "attribute_values": attr_values})}')
         return attr_values, None
 
     def screenshot(self, filename):
@@ -216,7 +204,6 @@ class CrawlerAdapter:
             ErrorLogger.error(f'crawler_adapter.screenshot.fail. Details: {str({"filename": filename, "error": e})}')
             return e
 
-        InfoLogger.info(f'crawler_adapter.screenshot.success. Details: {str({"filename": filename})}')
         return None
 
     def type(self, keys):

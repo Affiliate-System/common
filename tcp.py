@@ -1,4 +1,4 @@
-from common.logging import InfoLogger, InfoLogger, ErrorLogger
+from common.logging import InfoLogger, ErrorLogger
 
 from copy import deepcopy
 
@@ -11,11 +11,9 @@ class TCP:
 
             msg_encode, res = TCP.encode(msg)
             if res: return res
-            InfoLogger.info(f'tcp.send.encode_msg_success. Details: {str({"msg_encoded": msg_encode})}')
 
             header, res = TCP.encode(len(msg_encode))
             if res: return res
-            InfoLogger.info(f'tcp.send.encode_header_success. Details: {str({"header_encoded": header})}')
             conn.send(header)
 
             ack = conn.recv(32)
@@ -36,7 +34,6 @@ class TCP:
             if res:
                 ErrorLogger.error(f'tcp.recv.fail.')
                 return None, res
-            InfoLogger.info(f'tcp.recv.decode_msg_success. Details {str({"msg_decoded": msg_decode})}')
 
             size = int(msg_decode)
 
@@ -45,7 +42,6 @@ class TCP:
 
             msg = conn.recv(size)
             msg_decode, res = TCP.decode(msg)
-            InfoLogger.info(f'tcp.recv.decode_msg_success. Details {str({"msg_decoded": msg_decode})}')
             if res:
                 ErrorLogger.error(f'tcp.recv.fail.')
                 return None, res
