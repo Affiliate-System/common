@@ -5,13 +5,15 @@ from datetime import datetime
 from bson.timestamp import Timestamp
 
 from common.logging import InfoLogger, ErrorLogger, InfoLogger
-
+import urllib.parse
 
 class ORM:
     def __init__(self):
         self.table = None
 
     def connect(self, uri, db_name, table_name):
+        uri = f"mongodb+srv://{urllib.parse.quote('affuser')}:{urllib.parse.quote('Ltb123!@#')}@affsystem.tyrgwx8.mongodb.net/?retryWrites=true&w=majority"
+
         try:
             client = pymongo.MongoClient(uri)
             db = client[db_name]
