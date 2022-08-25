@@ -30,7 +30,7 @@ class CrawlerAdapter:
             self.action = ActionChains(self.driver)
             self.driver.set_window_size(1920, 1080)
         except Exception as e:
-            ErrorLogger.error('crawler_adapter.init.init_driver_and_action_fail')
+            ErrorLogger.error(f'crawler_adapter.init.init_driver_and_action_fail. {str({"error": e})}')
             return e
 
         return None
