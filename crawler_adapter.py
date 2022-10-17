@@ -13,6 +13,7 @@ from common.logging import InfoLogger, ErrorLogger
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
+from time import sleep
 
 class CrawlerAdapter:
     def __init__(self):
@@ -101,6 +102,8 @@ class CrawlerAdapter:
             self.action.move_to_element(element)
             if offset:
                 self.action.move_by_offset(offset[0], offset[1])
+            sleep(3)
+
             self.action.click()
             self.action.perform()
 
