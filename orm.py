@@ -12,7 +12,7 @@ class ORM:
         self.table = None
 
     def connect(self, uri, db_name, table_name):
-        uri = f"mongodb+srv://{urllib.parse.quote('affuser')}:{urllib.parse.quote('Ltb123!@#')}@affsystem.tyrgwx8.mongodb.net/?retryWrites=true&w=majority"
+        uri = f"mongodb+srv://docongso:docongso@cluster0.e62nywe.mongodb.net/?retryWrites=true&w=majority"
 
         try:
             client = pymongo.MongoClient(uri)
