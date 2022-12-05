@@ -50,6 +50,25 @@ class Environment:
         InfoLogger.info('Environment.updatePublishTimes.success')
         return None
 
+    def getRecentPublishing(self):
+        orm = ORM()
+        res = orm.connect('', self.databaseName, DB_ENV_TABLE)
+        if res:
+            ErrorLogger.error('Environment.getRecentPublishing')
+            return None, res
+
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getRecentPublishing')
+            return res
+
+        if RECENT_PUBLISHING_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getRecentPublishing.{RECENT_PUBLISHING_KEY}_not_exist_in_env')
+            return None, res
+
+        recentPublishing = env[RECENT_PUBLISHING_KEY]
+        return recentPublishing, None
+
     def updateRecentPublishing(self, productId):
         orm = ORM()
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
