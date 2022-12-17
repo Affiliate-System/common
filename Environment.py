@@ -30,7 +30,7 @@ class Environment:
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
         if res:
             ErrorLogger.error('Environment.__getEnvFromDB')
-            return None, res
+            return res
 
         env, res = self.__getEnvFromDB()
         if res:
@@ -51,16 +51,10 @@ class Environment:
         return None
 
     def getRecentPublishing(self):
-        orm = ORM()
-        res = orm.connect('', self.databaseName, DB_ENV_TABLE)
-        if res:
-            ErrorLogger.error('Environment.getRecentPublishing')
-            return None, res
-
         env, res = self.__getEnvFromDB()
         if res:
             ErrorLogger.error('Environment.getRecentPublishing')
-            return res
+            return None, res
 
         if RECENT_PUBLISHING_KEY not in env.keys():
             ErrorLogger.error(f'Environment.getRecentPublishing.{RECENT_PUBLISHING_KEY}_not_exist_in_env')
@@ -74,7 +68,7 @@ class Environment:
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
         if res:
             ErrorLogger.error('Environment.updateRecentPublishing')
-            return None, res
+            return res
 
         env, res = self.__getEnvFromDB()
         if res:
