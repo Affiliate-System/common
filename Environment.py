@@ -86,6 +86,97 @@ class Environment:
         InfoLogger.info('Environment.updateRecentPublishing.success')
         return None
 
+    def getEmailFacebook(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getEmailFacebook')
+            return None, res
+
+        if EMAIL_FACEBOOK_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getEmailFacebook.{EMAIL_FACEBOOK_KEY}_not_exist_in_env')
+            return None, res
+
+        emailFacebook = env[EMAIL_FACEBOOK_KEY]
+        return emailFacebook, None
+
+    def getPasswordFacebook(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getPasswordFacebook')
+            return None, res
+
+        if PASSWORD_FACEBOOK_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getPasswordFacebook.{PASSWORD_FACEBOOK_KEY}_not_exist_in_env')
+            return None, res
+
+        passFacebook = env[PASSWORD_FACEBOOK_KEY]
+        return passFacebook, None
+
+    def getPageNameFacebook(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getPageNameFacebook')
+            return None, res
+
+        if PAGE_NAME_FACEBOOK_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getPageNameFacebook.{PAGE_NAME_FACEBOOK_KEY}_not_exist_in_env')
+            return None, res
+
+        ret = env[PAGE_NAME_FACEBOOK_KEY]
+        return ret, None
+
+    def getPageIdFacebook(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getPageIdFacebook')
+            return None, res
+
+        if PAGE_ID_FACEBOOK_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getPageIdFacebook.{PAGE_ID_FACEBOOK_KEY}_not_exist_in_env')
+            return None, res
+
+        ret = env[PAGE_ID_FACEBOOK_KEY]
+        return ret, None
+
+    def getViralPageNames(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getViralPageNames')
+            return None, res
+
+        if VIRAL_PAGE_NAMES_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getViralPageNames.{VIRAL_PAGE_NAMES_KEY}_not_exist_in_env')
+            return None, res
+
+        ret = env[VIRAL_PAGE_NAMES_KEY]
+        return ret, None
+
+    def getPublishSchedule(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getPublishSchedule')
+            return None, res
+
+        if PUBLISH_SCHEDULE_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getPublishSchedule.{PUBLISH_SCHEDULE_KEY}_not_exist_in_env')
+            return None, res
+
+        ret = env[PUBLISH_SCHEDULE_KEY]
+        return ret, None
+
+    def getMarketingSchedule(self):
+        env, res = self.__getEnvFromDB()
+        if res:
+            ErrorLogger.error('Environment.getMarketingSchedule')
+            return None, res
+
+        if MARKETING_SCHEDULE_KEY not in env.keys():
+            ErrorLogger.error(f'Environment.getMarketingSchedule.{MARKETING_SCHEDULE_KEY}_not_exist_in_env')
+            return None, res
+
+        ret = env[MARKETING_SCHEDULE_KEY]
+        return ret, None
+
     def __getEnvFromDB(self):
         orm = ORM()
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
