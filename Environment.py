@@ -39,7 +39,7 @@ class Environment:
             ErrorLogger.error('Environment.updatePublishTimes')
             return res
 
-        env[PUBLISH_TIMES_KEY][productId] += 1
+        env[PUBLISH_TIMES_KEY][productId] = datetime.utcnow()
 
         query = {'_id': env['_id']}
         data = {PUBLISH_TIMES_KEY: env[PUBLISH_TIMES_KEY]}
