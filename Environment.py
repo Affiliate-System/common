@@ -2,6 +2,8 @@ from common.orm import ORM
 from common.logging import InfoLogger, ErrorLogger
 from config.config import *
 
+from datetime import datetime
+
 
 class Environment:
     def __init__(self, databaseName):
@@ -216,7 +218,7 @@ class Environment:
         for prod in products:
             productId = str(prod['_id'])
             if productId not in env[PUBLISH_TIMES_KEY].keys():
-                env[PUBLISH_TIMES_KEY][productId] = 0
+                env[PUBLISH_TIMES_KEY][productId] = datetime.utcnow()
 
         orm = ORM()
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
