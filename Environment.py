@@ -218,7 +218,7 @@ class Environment:
         for prod in products:
             productId = str(prod['_id'])
             if productId not in env[PUBLISH_TIMES_KEY].keys():
-                env[PUBLISH_TIMES_KEY][productId] = datetime.utcnow()
+                env[PUBLISH_TIMES_KEY][productId] = datetime(1999,1,1)
 
         orm = ORM()
         res = orm.connect('', self.databaseName, DB_ENV_TABLE)
